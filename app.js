@@ -67,6 +67,27 @@ res.send(e);
     }
 })
 
+//updating student records by it's id
+app.patch("/students/:id",async(req,res)=>{
+try{
+    const _id = req.params.id;
+   const updateStudents= await Student.findByIdAndUpdate(_id,req.body,{
+    new : true
+   });
+   res.send(updateStudents);
+}catch(e){
+    res.status(404).send(e);
+}
+
+
+})
+
+
+
+
+
+
+
 
 
 app.listen(port,()=>{
