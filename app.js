@@ -37,7 +37,35 @@ app.post("/students",async(req,res)=>{
     }
  })
 
+//reading data from database
+app.get("/students",async(req,res)=>{
+    try{
 
+       const studentData= await Student.find();
+       res.send(studentData);
+    }catch(e){
+        res.send(e);
+         
+    }
+})
+
+//get the indivual student data using id
+
+app.get("/students/:id",async(req,res)=>{
+    try{
+ const _id = req.params.id;
+ Student.findById({_id});
+ const studentData = await Student.findById(_id);
+
+ if(!studentData){
+    return res.status(404).send();
+ }else{
+    res.send(studentData);
+ }
+    }catch(e){
+res.send(e);
+    }
+})
 
 
 
